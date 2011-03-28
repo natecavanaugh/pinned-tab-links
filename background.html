@@ -1,0 +1,45 @@
+<html>
+<head>
+<script>
+	var forceLink = function(tab) {
+		if (tab.pinned) {
+			chrome.tabs.executeScript(
+				tab.id,
+				{
+					file: 'javascript.js'
+				}
+			);
+		}
+	};
+
+	var tabListener = function(tabId) {
+		chrome.tabs.get(tabId, forceLink);
+	};
+
+	var requestListener = function(request, sender, sendResponse) {
+		chrome.tabs.create(
+			{
+				url: request.url
+			},
+			function() {
+				sendResponse({});
+			}
+		);
+	};
+
+	chrome.tabs.getAllInWindow(
+		null,
+		function(tabs) {
+			for (var i = 0; i < tabs.length; i++) {
+				forceLink(tabs[i]);
+			}
+		}
+	);
+
+	chrome.tabs.onSelectionChanged.addListener(tabListener);
+	chrome.tabs.onUpdated.addListener(tabListener);
+
+	chrome.extension.onRequest.addListener(requestListener);
+</script>
+</head>
+</html>

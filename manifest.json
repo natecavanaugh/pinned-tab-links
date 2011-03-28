@@ -1,0 +1,9 @@
+{
+	"name": "Pin Tab Links",
+	"version": "1.0",
+	"description": "Force links in a pinned tab to open in a new tab when they point to another domain.",
+	"background_page": "background.html",
+	"permissions": [
+		"tabs", "http://*/*", "https://*/*"
+	]
+}

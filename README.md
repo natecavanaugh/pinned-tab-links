@@ -1,0 +1,1 @@
+Chrome extension to force links in a pinned tab to open in a new tab when they point to another domain.
